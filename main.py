@@ -54,6 +54,8 @@ if os.getenv("DEPLOY_ON_RAILWAY") is not None or os.getenv("DEPLOY_ON_ZEABUR"): 
 
 API_KEY = os.getenv("OPENAI_API_KEY", default=API_KEY)  # 如果环境变量中设置了OPENAI_API_KEY，则使用环境变量中的OPENAI_API_KEY
 PORT = os.getenv("PORT", default=PORT)  # 如果环境变量中设置了PORT，则使用环境变量中的PORT
+GPT_MODEL = os.getenv("GPT_MODEL", default="gpt-3.5-turbo")  # 如果环境变量中设置了GPT_MODEL，则使用环境变量中的GPT_MODEL
+GPT_TEMP = os.getenv("GPT_TEMP", default=0.9)  # 如果环境变量中设置了GPT_MODEL，则使用环境变量中的GPT_MODEL
 PASSWORD = os.getenv("PASSWORD", default=PASSWORD)  # 如果环境变量中设置了PASSWORD，则使用环境变量中的PASSWORD
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", default=ADMIN_PASSWORD)  # 如果环境变量中设置了ADMIN_PASSWORD，则使用环境变量中的ADMIN_PASSWORD
 if ADMIN_PASSWORD == "":
@@ -63,14 +65,11 @@ STREAM_FLAG = True  # 是否开启流式推送
 USER_DICT_FILE = "all_user_dict_v3.pkl"  # 用户信息存储文件（包含版本）
 lock = threading.Lock()  # 用于线程锁
 
-project_info = "## ChatGPT 网页版    \n" \
-               " Code From  " \
-               "[ChatGPT-Web](https://github.com/LiangYang666/ChatGPT-Web)  \n" \
-               "发送`帮助`可获取帮助  \n"
+project_info = "## 随视 ChatGPT 网页版 ！ \n" \
 
 
 def get_response_from_ChatGPT_API(message_context, apikey,
-                                  model="gpt-3.5-turbo", temperature=0.9, presence_penalty=0, max_tokens=2000):
+                                  model=GPT_MODEL, temperature=GPT_TEMP, presence_penalty=0, max_tokens=2000):
     """
     从ChatGPT API获取回复
     :param message_context: 上下文
